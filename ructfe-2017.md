@@ -23,7 +23,7 @@ There is a classic SQL injection. All content of fields on web pages and user da
 ### Database analysis
 
 We have seen some fields in a torrent file. Let's find something similar in database.
-At first, we should find the file which associated with our database. We can see this info in `db/client.py` file:
+The name of the SQLite database file can be found in db/client.py:
 
 ```python
 ...
@@ -37,15 +37,15 @@ class DBClient(metaclass=Singleton):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.connection.close()
 ```
-`DATABASE_FULL_PATH` is a necessary file path.
+(`DATABASE_FULL_PATH` const)
 
 Now open this file with **SQLite**:
 ![sqlite table](https://goo.gl/66Xdos)
 
 Table **PrivateTorrentFile** contains following columns: *announce*, *length*, *comment*, *name*, *uid*, *upload_by*, *content*.
-Columns *announce*, *length*, *comment*, *name* are directly copies from torrent file without escaping.
+Columns *announce*, *length*, *comment*, *name* are directly copied from torrent file without escaping.
 
-### Hacking
+### Exploitation
 
 For successful SQL injection we should change our torrent file fields such a way as to **insert query** put to our table some interesting information.
 
@@ -91,11 +91,11 @@ For SQL injection we need some **insert query** like this: `INSERT INTO PrivateT
 
 *Operator || is a concatenation of strings in sqlite.*
 
-#### Making query
+#### Constucting a query
 We can steal flag directly from **PrivateTorrentFile** table:
 `INSERT INTO PrivateTorrentFile (announce, comment, content, length, name, uid, upload_by) VALUES (''||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'', '', '', 0, '0', '', <hacker_username>);`
 
-#### Perform query
+#### Performing a query
 So, we now can detect the necessary query. How to execute it?
 
 At first it is need to go from our query to exact torrent file. I.e. build associative array:
