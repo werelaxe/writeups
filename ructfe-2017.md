@@ -92,7 +92,7 @@ For SQL injection we need some **insert query** like this: `INSERT INTO PrivateT
 *Operator || is a concatenation of strings in sqlite.*
 
 #### Making query
-We can steal flag directly from `PrivateTorrentFile` table:
+We can steal flag directly from **PrivateTorrentFile** table:
 `INSERT INTO PrivateTorrentFile (announce, comment, content, length, name, uid, upload_by) VALUES (''||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'', '', '', 0, '0', '', <hacker_username>);`
 
 #### Perform query
@@ -117,4 +117,4 @@ Then, generate torrent file with using function `make_dictionary` from `torrent_
 
 Finally, make POST request with uploading this file to `/upload_private`. Now we successfully executed our **insert query**.
 
-Stolen Flag is already in the `PrivateTorrentFile` table.
+Stolen Flag is already in the **PrivateTorrentFile** table.
