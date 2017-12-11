@@ -1,6 +1,6 @@
 ## Description
 
-The Pirate Bay is a web-service for sharing torrent files. It is written in **Python 3.5** as the programming language, **CherryPy** as the web framework and **sqlite3** as the database client. Service allows to mark a file as private, making it available only for owner. Checksystem puts flags in comments of private torrent files.
+The Pirate Bay is a web-service for sharing torrent files. It is written in **Python 3.5** as the programming language, **CherryPy** as the web framework and **sqlite3** as the database client. Service allows marking a file as private, making it available only for the owner. The checksystem puts flags in comments of private torrent files.
 
 ## The vulnerability
 There is a classic SQL injection. Some fields of torrent files are not escaped on INSERT requests.
