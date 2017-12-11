@@ -22,8 +22,8 @@ There is a classic SQL injection. All content of fields on web pages and user da
 
 ### Database analysis
 
-Let's watch database tables for finding fields with similar column names.
-At first we should find the file which associated with our database. We can see this info in `db/client.py` file:
+We have seen some fields in a torrent file. Let's find something similar in database.
+At first, we should find the file which associated with our database. We can see this info in `db/client.py` file:
 
 ```python
 ...
@@ -39,10 +39,10 @@ class DBClient(metaclass=Singleton):
 ```
 `DATABASE_FULL_PATH` is a necessary file path.
 
-Now open this file with **sqlite**:
+Now open this file with **SQLite**:
 ![sqlite table](https://goo.gl/66Xdos)
 
-Table **PrivateTorrentFile** contains following columns *announce*, *length*, *comment*, *name*, *uid*, *upload_by*, *content*.
+Table **PrivateTorrentFile** contains following columns: *announce*, *length*, *comment*, *name*, *uid*, *upload_by*, *content*.
 Columns *announce*, *length*, *comment*, *name* are directly copies from torrent file without escaping.
 
 ### Hacking
