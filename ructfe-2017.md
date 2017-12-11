@@ -10,7 +10,7 @@ There is a classic SQL injection. Some fields of torrent files are not escaped o
 [The torrent file](https://en.wikipedia.org/wiki/Torrent_file) is a [bencoded](https://en.wikipedia.org/wiki/Bencode) associative array with the following keys (some optional keys are omitted):
 
 * announce - the URL of the tracker
-* info - the dictionary, which keys are depend on whether one or several files are shared:
+* info - the dictionary, which keys depend on whether one or several files are shared:
 	* files - a list of dictionaries each corresponding to a file (only when multiple files are being shared). Each dictionary has the following keys:
 		* length - size of the file in bytes
 		* path - a list of strings corresponding to subdirectory names, the last of which is the actual file name
@@ -22,7 +22,7 @@ There is a classic SQL injection. Some fields of torrent files are not escaped o
 
 ### Database analysis
 
-We have seen some fields in a torrent file. Let's find something similar in database.
+We have seen some fields in a torrent file. Let's find something similar the in database.
 The name of the SQLite database file can be found in db/client.py.
 
 (`DATABASE_FULL_PATH` const)
@@ -48,7 +48,7 @@ Columns *announce*, *length*, *comment*, *name* are directly copied from the tor
 
 ### Exploitation
 
-For successful SQL injection we should change our torrent file fields to make **INSERT** query put some interesting information in the table.
+For successful SQL injection we should change our torrent file fields to make **INSERT** query put some interesting information to the table.
 
 Let's look at **db/client.py** file again. There is a constructor of **insert query**:
 
@@ -66,13 +66,13 @@ class InsertQuery:
 The simplest way to understand how to build necessary **insert query** is:
 1. Add `print(self.query)` at the end of `__init__` method for printing query
 2. Remove line `environment = "production"` from the `webserver/webserver.config` for
-enable debug messages from stdout
+enabling debug messages from stdout
 3. Restart a service with `sudo docker-compose stop`, then `sudo docker-compose up`
 
 Thus every **insert query** now prints to our console:
 ![insert query printing](http://joxi.ru/MAjEbeVSvNRZ42.png)
 
-It's clear that a following torrent file:
+It's clear that the following torrent file:
 ```python
 {
 	'announce': 'ructfe.org',
@@ -116,5 +116,4 @@ Then, generate torrent file using a function `make_dictionary` from `torrent_for
 `d8:announce0:4:infod7:comment96:'||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'6:lengthi0e4:name0:12:piece lengthi0e6:pieces0:ee`
 
 Finally, make POST request to upload this file to `/upload_private`. Now we successfully executed our **insert query**.
-
-Now we managed to place the flag in the **PrivateTorrentFile** table. It can be got using ....
+Now we managed to place the flag to the **PrivateTorrentFile** table. It can be got using ....
