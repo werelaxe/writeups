@@ -34,7 +34,7 @@ class DBClient(metaclass=Singleton):
 	def __enter__(self):
 		return self
 
-  def __exit__(self, exc_type, exc_val, exc_tb):
+	def __exit__(self, exc_type, exc_val, exc_tb):
 		self.connection.close()
 ```
 `DATABASE_FULL_PATH` is a necessary file path.
@@ -57,9 +57,9 @@ class InsertQuery:
 	def __init__(self, tbl_name, field_names, values):
 		self.query = "INSERT INTO {tbl_name} ({field_names}) VALUES ({values});".format(
 		tbl_name=tbl_name,
-			field_names=', '.join(field_names),
-			values=", ".join(value for value in values)
-			)
+		field_names=', '.join(field_names),
+		values=", ".join(value for value in values)
+		)
 ...
 ```
 The simplest way to understand how to build necessary **insert query** is:
