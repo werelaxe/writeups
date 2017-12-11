@@ -24,6 +24,7 @@ There is a classic SQL injection. All content of fields on web pages and user da
 
 We have seen some fields in a torrent file. Let's find something similar in database.
 The name of the SQLite database file can be found in db/client.py:
+(`DATABASE_FULL_PATH` const)
 
 ```python
 ...
@@ -37,7 +38,6 @@ class DBClient(metaclass=Singleton):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.connection.close()
 ```
-(`DATABASE_FULL_PATH` const)
 
 Now open this file with **SQLite**:
 ![sqlite table](https://goo.gl/66Xdos)
