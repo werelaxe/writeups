@@ -40,7 +40,7 @@ class DBClient(metaclass=Singleton):
 `DATABASE_FULL_PATH` is a necessary file path.
 
 Now open this file with **sqlite**:
-![sqlite table](http://joxi.ru/YmEz9peHZlbwB2.png)
+![sqlite table](https://goo.gl/zd8wxo)
 
 Table **PrivateTorrentFile** contains following columns *announce*, *length*, *comment*, *name*, *uid*, *upload_by*, *content*.
 Columns *announce*, *length*, *comment*, *name* are directly copies from torrent file without escaping.
