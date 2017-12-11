@@ -28,14 +28,14 @@ At first we should find the file which associated with our database. We can see 
 ```python
 ...
 class DBClient(metaclass=Singleton):
-	def __init__(self):
-		self.connection = sqlite3.connect(DATABASE_FULL_PATH, check_same_thread=False)
+    def __init__(self):
+        self.connection = sqlite3.connect(DATABASE_FULL_PATH, check_same_thread=False)
 
-	def __enter__(self):
-		return self
+    def __enter__(self):
+        return self
 
-	def __exit__(self, exc_type, exc_val, exc_tb):
-		self.connection.close()
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.connection.close()
 ```
 `DATABASE_FULL_PATH` is a necessary file path.
 
@@ -54,12 +54,12 @@ Let's watch **db/client** file again. There is a constructor of **insert query**
 ```python
 ...
 class InsertQuery:
-	def __init__(self, tbl_name, field_names, values):
-		self.query = "INSERT INTO {tbl_name} ({field_names}) VALUES ({values});".format(
-		tbl_name=tbl_name,
-		field_names=', '.join(field_names),
-		values=", ".join(value for value in values)
-		)
+    def __init__(self, tbl_name, field_names, values):
+        self.query = "INSERT INTO {tbl_name} ({field_names}) VALUES ({values});".format(
+            tbl_name=tbl_name,
+            field_names=', '.join(field_names),
+            values=", ".join(value for value in values)
+        )
 ...
 ```
 The simplest way to understand how to build necessary **insert query** is:
@@ -101,15 +101,15 @@ So, we now can detect the necessary query. How to execute it?
 At first it is need to go from our query to exact torrent file. I.e. build associative array:
 ```python
 {
-	'announce': '0',
-	'info': {
-			'length': 0,
-			'name': '',
-			'piece length': 0,
-			'pieces': '',
-			'comment': "'||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'"
-		}
-	}
+    'announce': '0',
+    'info': {
+        'length': 0,
+        'name': '',
+        'piece length': 0,
+        'pieces': '',
+        'comment': "'||(SELECT comment FROM PrivateTorrentFile WHERE comment LIKE '%=' ORDER BY UID DESC limit 1)||'"
+        }
+    }
 }
 ```
 Then, generate torrent file with using function `make_dictionary` from `torrent_format/bencoder`:
