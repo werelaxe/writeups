@@ -5,9 +5,9 @@ The Pirate Bay is a web-service for sharing torrent files. It is Written in **Py
 ## The vulnerability
 There is a classic SQL injection. All content of fields on web pages and user data are escaped excludes the fields from the torrent file.
 
-### Torrent file structure
+### The torrent file structure
 
-[Torrent file](https://en.wikipedia.org/wiki/Torrent_file) is a [bencoded](https://en.wikipedia.org/wiki/Bencode) associative array with the following keys(some optional keys are omitted):
+[Torrent file](https://en.wikipedia.org/wiki/Torrent_file) is a [bencoded](https://en.wikipedia.org/wiki/Bencode) associative array with the following keys (some optional keys are omitted):
 
 * announce - the URL of the tracker
 * info - this maps to a dictionary whose keys are dependent on whether one or more files are being shared:
