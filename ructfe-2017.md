@@ -23,7 +23,8 @@ There is a classic SQL injection. All content of fields on web pages and user da
 ### Database analysis
 
 We have seen some fields in a torrent file. Let's find something similar in database.
-The name of the SQLite database file can be found in db/client.py:
+The name of the SQLite database file can be found in db/client.py.
+
 (`DATABASE_FULL_PATH` const)
 
 ```python
