@@ -7,10 +7,10 @@ There is a classic SQL injection. All content of fields on web pages and user da
 
 ### The torrent file structure
 
-[Torrent file](https://en.wikipedia.org/wiki/Torrent_file) is a [bencoded](https://en.wikipedia.org/wiki/Bencode) associative array with the following keys (some optional keys are omitted):
+[The torrent file](https://en.wikipedia.org/wiki/Torrent_file) is a [bencoded](https://en.wikipedia.org/wiki/Bencode) associative array with the following keys (some optional keys are omitted):
 
 * announce - the URL of the tracker
-* info - this maps to a dictionary whose keys are dependent on whether one or more files are being shared:
+* info - the dictionary, which keys are depend on whether one or several files are shared:
 	* files - a list of dictionaries each corresponding to a file (only when multiple files are being shared). Each dictionary has the following keys:
 		* length - size of the file in bytes
 		* path - a list of strings corresponding to subdirectory names, the last of which is the actual file name
