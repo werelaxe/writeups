@@ -44,13 +44,13 @@ Now open this file with **SQLite**:
 ![sqlite table](https://goo.gl/66Xdos)
 
 **PrivateTorrentFile** table contains following columns: *announce*, *length*, *comment*, *name*, *uid*, *upload_by*, *content*.
-Columns *announce*, *length*, *comment*, *name* are directly copied from torrent file without escaping.
+Columns *announce*, *length*, *comment*, *name* are directly copied from the torrent file without escaping.
 
 ### Exploitation
 
-For successful SQL injection we should change our torrent file fields such a way as to **insert query** put to our table some interesting information.
+For successful SQL injection we should change our torrent file fields to make **INSERT** query put some interesting information in the table.
 
-Let's watch **db/client** file again. There is a constructor of **insert query**:
+Let's look at **db/client.py** file again. There is a constructor of **insert query**:
 
 ```python
 ...
